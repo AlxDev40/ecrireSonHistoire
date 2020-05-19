@@ -39,10 +39,5 @@ class EshController extends AbstractController
         return $this->render('esh/login.html.twig');
     }
 
-    /**
-     * @route("/registration", name="esh_registration")
-     */
-    public function registration(){
-        return $this->render('esh/registration.html.twig');
-    }
+    
 }

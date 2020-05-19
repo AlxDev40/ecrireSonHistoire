@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class Users
+class User
 {
     /**
      * @ORM\Id()
@@ -20,12 +20,14 @@ class Users
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $userName;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    private $confirmPassword;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,14 +44,14 @@ class Users
         return $this->id;
     }
 
-    public function getUserName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->userName;
+        return $this->username;
     }
 
-    public function setUserName(string $userName): self
+    public function setUsername(string $username): self
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
@@ -62,6 +64,18 @@ class Users
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(string $confirmPassword): self
+    {
+        $this->confirmPassword = $confirmPassword;
 
         return $this;
     }
