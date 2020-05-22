@@ -2,13 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *  fields= {"email"},
+ *  message= "Le mail que vous avez saisi est déjà utilisé !"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,14 +27,20 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("[0-9]", message="le nom doit etre un chiffre")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=8, minMessage="Le mot de passe doit avoir au moins 8 caractères")
+     
      */
     private $password;
 
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="La confirmation doit être la même que le mot de passe.")
+     */
     private $confirmPassword;
 
     /**
@@ -36,6 +50,7 @@ class User
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Email()
      */
     private $registrationDate;
 
@@ -102,5 +117,17 @@ class User
         $this->registrationDate = $registrationDate;
 
         return $this;
+    }
+
+    public function eraseCredentials(){
+        
+    }
+
+    public function getSalt(){
+        
+    }
+
+    public function getRoles(){
+        return ['ROLE_USER'];
     }
 }
