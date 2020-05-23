@@ -17,24 +17,41 @@ class SecurityController extends AbstractController
   /**
    * @Route("/registration", name="security_registration")
    */
-    public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
-        $user = new User();
+	public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+		$user = new User();
 
-        $form = $this->createForm(RegistrationType::class, $user);
+		$form = $this->createForm(RegistrationType::class, $user);
 
-        $form->handleRequest($request);
+		$form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-          $hash = $encoder->encodePassword($user, $user->getPassword());
-          $user->setPassword($hash);
-          $user->setRegistrationDate(new \dateTime());
-          $manager->persist($user);
-          $manager->flush();
-        }
+		if($form->isSubmitted() && $form->isValid()){
+			$hash = $encoder->encodePassword($user, $user->getPassword());
+			$user->setPassword($hash);
+			$user->setRegistrationDate(new \dateTime());
+			$manager->persist($user);
+			$manager->flush();
+			return $this->redirectToRoute('security_login');
+		}
 
-        return $this->render('security/registration.html.twig', [
-            'title' => 'Ecrire son histoire - Enregistrement',
-            'form' => $form->createView()
-        ]);
-  }
+		return $this->render('security/registration.html.twig', [
+			'title' => 'Ecrire son histoire - Enregistrement',
+			'form' => $form->createView()
+		]);
+	 }
+	 
+	 /**
+	  * @route("/login", name="security_login")
+	  */
+	 public function login(){
+		 return $this->render('security/login.html.twig', [
+			 'title'=>'Ecrire son histoire - Connexion'
+		 ]);
+	 }
+
+	 /**
+	  * @Route("/logout", name="security_logout")
+	  */
+	 public function logout(){
+		 
+	 }
 }

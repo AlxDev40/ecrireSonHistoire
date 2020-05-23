@@ -29,15 +29,9 @@ class EshController extends AbstractController
      * @route("/rules", name="esh_rules")
      */
     public function rules(){
-        return $this->render('esh/rules.html.twig');
+        return $this->render('esh/rules.html.twig', [
+            'title'=>'Ecrire son histoire - Règles'
+        ]);
     }
-
-     /**
-     * @route("/login", name="esh_login")
-     */
-    public function login(){
-        return $this->render('esh/login.html.twig');
-    }
-
     
 }

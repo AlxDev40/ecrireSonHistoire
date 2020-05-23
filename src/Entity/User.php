@@ -27,7 +27,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("[0-9]", message="le nom doit etre un chiffre")
      */
     private $username;
 
