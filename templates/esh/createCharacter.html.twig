@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+
+
+{% block body %}
+    <h1>formulaire de création d'un personnage</h1>
+
+{{ form_start(formCharacter) }}
+
+{{ form_row(formCharacter.characterName, {'label': "Nom du personnage", 'attr': {'placeholder': "Choisissez le nom de votre personnage"}}) }}
+
+<button class='btn btn-success' type="submit">Créer !</button>
+
+{{ form_end(formCharacter) }}
+
+{% endblock body %}

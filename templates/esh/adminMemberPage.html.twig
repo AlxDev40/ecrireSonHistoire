@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div id='intro'>
+    <h1>Gestion de votre espace membre</h1>
+    <p class="intro">Bonjour {{ app.user.username }}, Tu te trouve sur la page de gestion de ton espace membre. C'est d'ici que tu pourras 
+        gérer tes informations de membre, te connecter à tes personnages ou les suprimmer. 
+        C'est également à partir de cette page que tu pourras choisir l'histoire que tu desires lire.
+    </p>
+</div>
+
+<div id="adminMemberPage_characterBox">
+        <div class="adminMemberPage_characterBox_picture">
+            <img src="{{asset('/pictures/entrance_to_a_cave.png')}}" alt="entrée d'une grotte" width="70%">
+        </div>
+        <div class="adminMemberPage_characterBox_paragraph">
+            <div>
+                <p>
+                    Et bien voila  {{ app.user.username }}, tu es prêt à entrer dans l'aventure ? Je pense que oui. Choisi un personnage et 
+                    affronte ton destin.
+                </p>
+            </div>
+           
+            <div>
+                <label for="CharacterChoice">Que la magie opère et devient</label>
+                <select name="character" id="CharacterChoice">
+                    
+                    {% for character in characters %}
+                        
+                    {% endfor %}
+                    
+                </select><br>
+                <a href="#"><button class="btn btn-primary">Entre dans le monde</button></a>
+            </div>
+
+            <div>
+                <p>
+                    Ah mais tu n'as pas encore de personnage? clique sur le bouton ci-dessous et crée le.
+                </p>
+                <a href="{{path('esh_character')}}"><button class="btn btn-primary">Créer un personnage</button></a>
+            </div>
+        </div>
+    
+       
+    </div>
+    <div id="adminMemberPage_characterInfo">
+        <h1>Info sur les personnages</h1>
+
+    </div>
+</div>
+
+
+   
+{% endblock body %}

@@ -15,7 +15,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -33,6 +33,15 @@
                             <a class="nav-link" href="{{path('security_registration')}}">Enregistrement</a>
                         </li>
                     {% else  %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('esh_adminMemberPage')}}">Entrer dans l'aventure</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('esh_character')}}">Créer un personnage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('esh_write')}}">Ecrire sa propre histoire</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('security_logout')}}">Deconnexion</a>
                         </li>
