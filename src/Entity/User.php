@@ -72,6 +72,7 @@ class User implements UserInterface
 
     public function getUsername(): ?string
     {
+        $this->username = ucfirst($this->username);
         return $this->username;
     }
 

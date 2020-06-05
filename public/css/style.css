@@ -23,24 +23,32 @@ body{
 }
 
 /* Général configuration*/
+h1{
+    font-family: 'title_Ruritania', Arial, Helvetica, sans-serif;
+    font-size: 70px;
+    padding-top: 30px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    padding: 30px;
+    text-decoration: underline;
+}
 #intro{
     text-align: center;
     color: #676259;
 }
-#intro h1{
-    font-family: 'title_Ruritania', Arial, Helvetica, sans-serif;
-
-    font-size: 70px;
-    padding-top: 30px;
-}
 #intro p{
     font-family: 'paragraph_Cardinal', Arial, Helvetica, sans-serif;
-
     padding: 30px;
     font-size: xxx-large;
 }
 .btn-primary{
     background-color: #5A3A22;
+}
+form{
+    width: 100%;
+    margin: auto;
 }
 /* Template de base*/
 .navbar{
@@ -80,24 +88,78 @@ body{
     height: 200px;
     padding: 50px;
 }
-/* admin member page*/
-#adminMemberPage_characterBox{
+
+/* general page template */
+#adminMemberPage_box01{
     display: flex;
     text-align: center;
     background-color: #FFEFD5;
 }
-.adminMemberPage_characterBox_picture{
+.adminMemberPage_box01_picture{
     width: 50%;
     padding: 30px;
 }
-.adminMemberPage_characterBox_paragraph{
+.adminMemberPage_box01_paragraph{
     width: 50%;
     margin: auto;
 }
-.adminMemberPage_characterBox_paragraph div p{
+.adminMemberPage_box01_paragraph div p{
     padding: 30px;
 }
-.adminMemberPage_characterBox_paragraph a{
+.adminMemberPage_box01_paragraph a{
     padding-top: 30px;
 }
+#adminMemberPage_box02{
+    text-align: center;
+}
+#adminMemberPage_box02 h1{
+    padding: 20px;
+}
+#adminMemberPage_box02 table{
+    margin: 10px auto;
+}
+#adminMemberPage_box02 th{
+    border-top:solid #FFEFD5 2px;
+   
+}
+#adminMemberPage_box02 th, td{
+    padding: 10px;
+    border-bottom:solid #FFEFD5 2px;
+}
+.deleteButton{
+    color: #F08080;
+}
+a:hover{
+    color: crimson;
+}
+/* createCharacter*/
+#createCharacter_box01{
+  text-align: center;
+}
+    #createCharacter_box01 img{
+        width: 50%;
+        padding: 20px;
+    }
+#createCharacter_box02{
+    background-color: #FFEFD5;
+}
+    .createCharacter_box02_paragraph{
+        padding: 10px 40px 40px 40px;
+    }
+#createCharacter_box03{
+    
+}
+    .createCharacter_box03_forDisplay{
+        display: flex;
+    }
+    .createCharacter_box03_paragraph{
+        width: 60%;
+        padding: 40px;
+        text-align: justify;
+        font-style: italic;
+    }
+    .createCharacter_box03_form{
+        width: 40%;
+        padding: 40px;
+    }
 

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{{title}}</title>
+        <title>Ecrire son histoire</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
         <link rel="stylesheet" href="{{ asset("/css/style.css") }}">
@@ -37,7 +37,7 @@
                             <a class="nav-link" href="{{path('esh_adminMemberPage')}}">Entrer dans l'aventure</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('esh_character')}}">Créer un personnage</a>
+                            <a class="nav-link" href="{{path('esh_createCharacter')}}">Créer un personnage</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{path('esh_write')}}">Ecrire sa propre histoire</a>
@@ -53,7 +53,7 @@
             <footer>
                 <div class="footer">
                 <h2>Plan du site</h2>
-                <h2>Réseaux Socios</h2>
+                <h2>Réseaux Sociaux</h2>
                 </div>
             </footer>
         {% block javascripts %}{% endblock %}

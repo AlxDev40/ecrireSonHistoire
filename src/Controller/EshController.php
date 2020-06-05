@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use App\Entity\Character;
-use App\Form\CharacterType;
+use App\Entity\Equipment;
+use App\Form\CreateCharacterType;
 use App\Repository\CharacterRepository;
-use App\Repository\UserRepository;
+use App\Repository\EquipmentRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EshController extends AbstractController
 {
@@ -57,42 +59,67 @@ class EshController extends AbstractController
     }
 
     /**
-     * @Route("/adminMemberPage/{id}", name="esh_adminMemberPage")
+     * @Route("/adminMemberPage", name="esh_adminMemberPage")
      */
-    public function adminMemberPage(UserRepository $user, CharacterRepository $repo){
-        dump($user);
-        $characters = $repo->findall();
+    public function adminMemberPage(CharacterRepository $repo, EquipmentRepository $repoEquipment){
+        $user = $this->getUser();
+        //C'est ici que je crée un $id qui contient l'id du user, ensuite je crée un $character qui contient l'id du $user et qui me permettra de dire dans la page adminMemberPage que (if il y a un $character dans mon $user alors j'ai un affichage twig else un autre affichage.)Il y à surement mieux, hein David ??????
 
-        dump($characters);
+        $characters = $repo->findBy(array('user'=>$user->getId()));
        
+
         return $this->render('esh/adminMemberPage.html.twig', [
             'title'=>'Ecrire son histoire - Personnage',
-            'characters'=> $characters,
             'user'=>$user,
+            'characters'=>$characters,
            
         ]);
     }
 
     /**
-    * @route("/createCharacter", name="esh_character")
-    */
-	  public function createCharacter(UserInterface $user, Request $request, ObjectManager $manager){
+     * @Route("/deleteCharacter/{id}", name="esh_deleteCharacter")
+     */
+    public function deleteCharacter(Character $character, ObjectManager $manager){
+
+        $manager->remove($character);
+        $manager->flush();
+        return $this->redirectToRoute('esh_adminMemberPage');
+    }
+
+    /**
+     * @route("/createCharacter", name="esh_createCharacter")
+     */
+    public function createCharacterText(UserInterface $user, Request $request, ObjectManager $manager,EquipmentRepository $repo){
         $character = new Character();
 
-        $form = $this->createForm(CharacterType::class, $character);
-        
-        $form->handleRequest($request);
+        $form = $this->createForm(CreateCharacterType::class, $character);
 
+        $form->handleRequest($request);
+    
+        if($character->getClass()=='Magicien'){
+            $equipment = $repo->findOneByName('baton');
+            $character->addEquipment($equipment);
+        } elseif ($character->getClass()=='Guerrier'){
+            $equipment = $repo->findOneByName('Epée simple');
+            $character->addEquipment($equipment);
+        }
+        
         if($form->isSubmitted() && $form->isValid()){
             $character->setUser($user);
+            $character->setDexterity('1');
+            $character->setLevel('1');
+            $character->setLifePoint('10');
+            $character->setAttack('1');
+            $character->setDefense('1');
             $manager->persist($character);
             $manager->flush();
-            return $this->redirectToRoute('esh_story');
+            return $this->redirectToRoute('esh_adminMemberPage');
         }
 
         return $this->render('esh/createCharacter.html.twig', [
             'title'=>'Ecrire son histoire - Créer un personnage',
-            'formCharacter'=>$form->createView()
+            'formCharacter'=>$form->createView(),
 		]);
-	}
+    }
+
 }
