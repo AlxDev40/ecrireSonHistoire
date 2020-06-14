@@ -10,10 +10,6 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Bonus</th>
-                <th>Malus</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +17,6 @@
             <tr>
                 <td>{{ equipment.id }}</td>
                 <td>{{ equipment.name }}</td>
-                <td>{{ equipment.type }}</td>
-                <td>{{ equipment.bonus }}</td>
-                <td>{{ equipment.malus }}</td>
                 <td>
                     <a href="{{ path('equipment_show', {'id': equipment.id}) }}">show</a>
                     <a href="{{ path('equipment_edit', {'id': equipment.id}) }}">edit</a>

@@ -25,21 +25,6 @@ class Equipment
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $bonus;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $malus;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Character::class, mappedBy="equipment")
      */
     private $characters;
@@ -62,42 +47,6 @@ class Equipment
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getBonus(): ?string
-    {
-        return $this->bonus;
-    }
-
-    public function setBonus(?string $bonus): self
-    {
-        $this->bonus = $bonus;
-
-        return $this;
-    }
-
-    public function getMalus(): ?string
-    {
-        return $this->malus;
-    }
-
-    public function setMalus(?string $malus): self
-    {
-        $this->malus = $malus;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Repository\ChapterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ChapterRepository::class)
@@ -20,7 +21,7 @@ class Chapter
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $number;
 
@@ -35,11 +36,6 @@ class Chapter
     private $text;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $descriptionText;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="chapters")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -50,9 +46,26 @@ class Chapter
      */
     private $roads;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $itinerary;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Road::class, mappedBy="targetChapter")
+     */
+    private $targetRoads;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="currentChapter")
+     */
+    private $characters;
+
     public function __construct()
     {
         $this->roads = new ArrayCollection();
+        $this->targetRoads = new ArrayCollection();
+        $this->characters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,18 +109,6 @@ class Chapter
         return $this;
     }
 
-    public function getDescriptionText(): ?string
-    {
-        return $this->descriptionText;
-    }
-
-    public function setDescriptionText(string $descriptionText): self
-    {
-        $this->descriptionText = $descriptionText;
-
-        return $this;
-    }
-
     public function getBook(): ?Book
     {
         return $this->book;
@@ -116,6 +117,18 @@ class Chapter
     public function setBook(?Book $book): self
     {
         $this->book = $book;
+
+        return $this;
+    }
+
+    public function getItinerary(): ?string
+    {
+        return $this->itinerary;
+    }
+
+    public function setItinerary(?string $itinerary): self
+    {
+        $this->itinerary = $itinerary;
 
         return $this;
     }
@@ -145,6 +158,68 @@ class Chapter
             // set the owning side to null (unless already changed)
             if ($road->getChapter() === $this) {
                 $road->setChapter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Road[]
+     */
+    public function getTargetRoads(): Collection
+    {
+        return $this->targetRoads;
+    }
+
+    public function addTargetRoad(Road $targetRoad): self
+    {
+        if (!$this->targetRoads->contains($targetRoad)) {
+            $this->targetRoads[] = $targetRoad;
+            $targetRoad->setTargetChapter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTargetRoad(Road $targetRoad): self
+    {
+        if ($this->targetRoads->contains($targetRoad)) {
+            $this->targetRoads->removeElement($targetRoad);
+            // set the owning side to null (unless already changed)
+            if ($targetRoad->getTargetChapter() === $this) {
+                $targetRoad->setTargetChapter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Character[]
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): self
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters[] = $character;
+            $character->setCurrentChapter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): self
+    {
+        if ($this->characters->contains($character)) {
+            $this->characters->removeElement($character);
+            // set the owning side to null (unless already changed)
+            if ($character->getCurrentChapter() === $this) {
+                $character->setCurrentChapter(null);
             }
         }
 

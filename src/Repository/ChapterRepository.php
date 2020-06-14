@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Chapter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,23 @@ class ChapterRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Chapter::class);
     }
+
+    // /**
+    //  * @return Chapter[] Returns an array of Chapter objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
 
     // /**
     //  * @return Chapter[] Returns an array of Chapter objects

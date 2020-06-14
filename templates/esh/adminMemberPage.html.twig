@@ -14,24 +14,29 @@
             <img src="{{asset('/pictures/entrance_to_a_cave.png')}}" alt="entrée d'une grotte" width="70%">
         </div>
         <div class="adminMemberPage_box01_paragraph">
-            {% if characters %}
+            {% if user.characters|length > 0 %}
             <div>
                 <p>Et bien voilà  {{ user.username }}, tu es prêt à entrer dans l'aventure. Choisis un personnage et 
                 affronte ton destin.</p> 
             </div>
             <div>
-                <label for="CharacterChoice">Que la magie opère et deviens</label>
+                <!--<label for="CharacterChoice">Que la magie opère et deviens</label>
                 <select name="character" id="CharacterChoice">
                 {% for character in user.characters %}
                     <option value="{{ character.id }}">{{ character.characterName }}</option>
                 {% endfor %}
-                </select><br>
-                <a href="#"><button class="btn btn-primary">Entre dans le monde</button></a>
+                </select><br>-->
+                <p>Que la magie opère et devient</p>
+                <div class="container">
+                    {% for character in user.characters %}
+                    <a href="{{ path('readBook.initiate', {'id':character.id}) }}" ><button class="btn btn-primary">{{character.characterName}}</button></a>
+                    {% endfor %}
+                </div>
             </div>
             {% else %}
             <div>
                 <p>Mais tu n'as pas encore de personnage {{ user.username }} ! clique sur le bouton ci-dessous et crées-en un.</p>
-                <a href="{{ path('esh_createCharacter') }}"><button class="btn btn-primary">Créer un personnage</button></a>
+                <a href="{{ path('character.createCharacter') }}" ><button class="btn btn-primary">Créer un personnage</button></a>
             </div>
             {% endif %}
         </div>
@@ -39,7 +44,7 @@
 
     <div id="adminMemberPage_box02">
         <h1>Informations sur vos personnages</h1>
-        {% if characters %}
+        {% if user.characters|length > 0 %}
         <table>
             <tr>
                 <th>Nom</th>
@@ -63,10 +68,13 @@
                 <td>{{ character.dexterity }}</td>
                 <td>{{ character.attack }}</td>
                 <td>{{ character.defense }}</td>
-                <td ><a class="deleteButton" href="{{ path('esh_deleteCharacter', {'id': character.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir supprimer le personnage {{character.characterName}}. Cette action supprime toutes ces histoires en cours ainsi que tous ces équipements.'))">Supprimer</a></td>
+                <td ><a class="deleteButton" href="{{ path('character.deleteCharacter', {'id': character.id}) }}" onclick="return(confirm('Etes-vous sûr de vouloir supprimer le personnage {{character.characterName}}. Cette action supprime toutes ces histoires en cours ainsi que tous ces équipements.'))">Supprimer</a></td>
+                <td>
+                    {% for equipment in character.equipment %}
+                    {{equipment.name}}
+                    {% endfor %}
+                </td>
                
-                <td>{%dump(character.equipment.name)%}</td>
-              
             </tr>
             {% endfor %}
         </table>

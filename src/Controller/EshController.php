@@ -18,17 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EshController extends AbstractController
 {
     /**
-     * @Route("/esh", name="esh")
-     */
-    public function index()
-    {
-        return $this->render('esh/index.html.twig', [
-            'controller_name' => 'EshController',
-        ]);
-    }
-
-    /**
-     * @Route("/", name="esh_home")
+     * @Route("/", name="esh.home")
      */
     public function home(){
         $repo = $this->getDoctrine()->getRepository(User::class);
@@ -40,8 +30,9 @@ class EshController extends AbstractController
             'users'=>$users
         ]);
     }
+
     /**
-     * @route("/rules", name="esh_rules")
+     * @route("/rules", name="esh.rules")
      */
     public function rules(){
         return $this->render('esh/rules.html.twig', [
@@ -50,7 +41,7 @@ class EshController extends AbstractController
     }
 
     /**
-     * @Route("/write", name="esh_write")
+     * @Route("/write", name="esh.write")
      */
     public function write(){
         return $this->render('esh/write.html.twig', [
@@ -59,67 +50,16 @@ class EshController extends AbstractController
     }
 
     /**
-     * @Route("/adminMemberPage", name="esh_adminMemberPage")
+     * @Route("/adminMemberPage", name="esh.adminMemberPage")
      */
-    public function adminMemberPage(CharacterRepository $repo, EquipmentRepository $repoEquipment){
+    public function adminMemberPage(){
         $user = $this->getUser();
-        //C'est ici que je crée un $id qui contient l'id du user, ensuite je crée un $character qui contient l'id du $user et qui me permettra de dire dans la page adminMemberPage que (if il y a un $character dans mon $user alors j'ai un affichage twig else un autre affichage.)Il y à surement mieux, hein David ??????
-
-        $characters = $repo->findBy(array('user'=>$user->getId()));
-       
 
         return $this->render('esh/adminMemberPage.html.twig', [
             'title'=>'Ecrire son histoire - Personnage',
             'user'=>$user,
-            'characters'=>$characters,
-           
+
         ]);
-    }
-
-    /**
-     * @Route("/deleteCharacter/{id}", name="esh_deleteCharacter")
-     */
-    public function deleteCharacter(Character $character, ObjectManager $manager){
-
-        $manager->remove($character);
-        $manager->flush();
-        return $this->redirectToRoute('esh_adminMemberPage');
-    }
-
-    /**
-     * @route("/createCharacter", name="esh_createCharacter")
-     */
-    public function createCharacterText(UserInterface $user, Request $request, ObjectManager $manager,EquipmentRepository $repo){
-        $character = new Character();
-
-        $form = $this->createForm(CreateCharacterType::class, $character);
-
-        $form->handleRequest($request);
-    
-        if($character->getClass()=='Magicien'){
-            $equipment = $repo->findOneByName('baton');
-            $character->addEquipment($equipment);
-        } elseif ($character->getClass()=='Guerrier'){
-            $equipment = $repo->findOneByName('Epée simple');
-            $character->addEquipment($equipment);
-        }
-        
-        if($form->isSubmitted() && $form->isValid()){
-            $character->setUser($user);
-            $character->setDexterity('1');
-            $character->setLevel('1');
-            $character->setLifePoint('10');
-            $character->setAttack('1');
-            $character->setDefense('1');
-            $manager->persist($character);
-            $manager->flush();
-            return $this->redirectToRoute('esh_adminMemberPage');
-        }
-
-        return $this->render('esh/createCharacter.html.twig', [
-            'title'=>'Ecrire son histoire - Créer un personnage',
-            'formCharacter'=>$form->createView(),
-		]);
     }
 
 }

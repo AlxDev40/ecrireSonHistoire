@@ -17,11 +17,11 @@ security:
             anonymous: lazy
             provider: in_database
             form_login:
-                login_path: security_login
-                check_path: security_login
+                login_path: security.login
+                check_path: security.login
             logout:
-                path: security_logout
-                target: esh_home
+                path: security.logout
+                target: esh.home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -72,6 +72,11 @@ class Character
      */
     private $equipment;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Chapter::class, inversedBy="characters")
+     */
+    private $currentChapter;
+
     public function __construct()
     {
         $this->equipment = new ArrayCollection();
@@ -214,6 +219,18 @@ class Character
             $this->equipment->removeElement($equipment);
             $equipment->removeCharacter($this);
         }
+
+        return $this;
+    }
+
+    public function getCurrentChapter(): ?Chapter
+    {
+        return $this->currentChapter;
+    }
+
+    public function setCurrentChapter(?Chapter $currentChapter): self
+    {
+        $this->currentChapter = $currentChapter;
 
         return $this;
     }

@@ -10,7 +10,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="{{ path('esh_home') }}"><img src="{{ asset("/pictures/LogoEcrireSonHistoire.png") }}" alt="Image" class="logoHeader"></a>
+            <a href="{{ path('esh.home') }}"><img src="{{ asset("/pictures/LogoEcrireSonHistoire.png") }}" alt="Image" class="logoHeader"></a>
              
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,31 +19,31 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('esh_home') }}">Accueil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ path('esh.home') }}">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('esh_rules')}}">Règles</a>
+                        <a class="nav-link" href="{{path('esh.rules')}}">Règles</a>
                     </li>
 
                     {% if not app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('security_login')}}">Connexion</a>
+                            <a class="nav-link" href="{{path('security.login')}}">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('security_registration')}}">Enregistrement</a>
+                            <a class="nav-link" href="{{path('security.registration')}}">Enregistrement</a>
                         </li>
                     {% else  %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('esh_adminMemberPage')}}">Entrer dans l'aventure</a>
+                            <a class="nav-link" href="{{path('esh.adminMemberPage')}}">Entrer dans l'aventure</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('esh_createCharacter')}}">Créer un personnage</a>
+                            <a class="nav-link" href="{{path('character.createCharacter')}}">Créer un personnage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('esh_write')}}">Ecrire sa propre histoire</a>
+                            <a class="nav-link" href="{{path('esh.write')}}">Ecrire sa propre histoire</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('security_logout')}}">Deconnexion</a>
+                            <a class="nav-link" href="{{path('security.logout')}}">Deconnexion</a>
                         </li>
                     {% endif %}
                 </ul>

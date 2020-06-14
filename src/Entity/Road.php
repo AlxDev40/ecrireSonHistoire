@@ -28,6 +28,17 @@ class Road
      */
     private $chapter;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $itinerary;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Chapter::class, inversedBy="targetRoads")
+     */
+    private $targetChapter;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,4 +67,30 @@ class Road
 
         return $this;
     }
+
+    public function getItinerary(): ?string
+    {
+        return $this->itinerary;
+    }
+
+    public function setItinerary(?string $itinerary): self
+    {
+        $this->itinerary = $itinerary;
+
+        return $this;
+    }
+
+    public function getTargetChapter(): ?Chapter
+    {
+        return $this->targetChapter;
+    }
+
+    public function setTargetChapter(?Chapter $targetChapter): self
+    {
+        $this->targetChapter = $targetChapter;
+
+        return $this;
+    }
+
+
 }
