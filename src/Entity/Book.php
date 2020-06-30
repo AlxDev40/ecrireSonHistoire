@@ -36,8 +36,14 @@ class Book
 
     /**
      * @ORM\OneToMany(targetEntity=Chapter::class, mappedBy="book", orphanRemoval=true)
+     * @ORM\OrderBy({"number" = "ASC"})
      */
     private $chapters;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="book")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -112,6 +118,18 @@ class Book
                 $chapter->setBook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

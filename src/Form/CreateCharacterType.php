@@ -14,19 +14,28 @@ class CreateCharacterType extends AbstractType
     {
         $builder
             ->add('characterName')
-            ->add('class',ChoiceType::class, 
-                [ 'placeholder'=>'Quelle classe voulez vous jouer? ', 
-                    'choices'=>[
-                        'Guerrier'=>'Guerrier',
-                        'Magicien'=>'Magicien',
-            ]])
-            ->add('gender', ChoiceType::class, 
-                [ 'placeholder'=>'Quelle est votre genre? ', 
-                    'choices'=>[
-                        'Homme'=>'homme',
-                        'Femme'=>'femme',
-            ]])
-        ;
+            ->add(
+                'class',
+                ChoiceType::class,
+                [
+                    'placeholder' => 'Quelle classe voulez-vous jouer? ',
+                    'choices' => [
+                        'Guerrier' => 'Guerrier',
+                        'Magicien' => 'Magicien',
+                    ]
+                ]
+            )
+            ->add(
+                'gender',
+                ChoiceType::class,
+                [
+                    'placeholder' => 'Quel est votre genre? ',
+                    'choices' => [
+                        'Homme' => 'homme',
+                        'Femme' => 'femme',
+                    ]
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

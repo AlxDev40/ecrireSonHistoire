@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+{{ form_row(form.chapter) }}
+{{ form_row(form.content) }}
+{{ form_row(form.paragraph) }}
+{{ form_row(form.targetChapter)}}
+{{ form_row(form.necessary) }}
+
+<button class="btn btn-primary">{{button| default('Bouton par défaut')}}</button>
+
+{{ form_end(form) }}
+
+<a href="{{ path('road_index') }}"><button class="btn btn-primary">Annulation</button></a>

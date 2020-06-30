@@ -46,12 +46,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message = "Vous devez entrer un Email valide.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\Email()
      */
     private $registrationDate;
 
@@ -60,9 +60,21 @@ class User implements UserInterface
      */
     private $characters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="user")
+     */
+    private $book;
+
+    /**
+     * @ORM\Column(type="json_array", nullable=true)
+     */
+    private $roles = [];
+
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->book = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,16 +143,21 @@ class User implements UserInterface
         return $this;
     }
 
-    public function eraseCredentials(){
-        
+    public function eraseCredentials()
+    {
     }
 
-    public function getSalt(){
-        
+    public function getSalt()
+    {
     }
 
-    public function getRoles(){
-        return ['ROLE_USER'];
+    public function getRoles(): ?array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
     /**
@@ -170,6 +187,44 @@ class User implements UserInterface
                 $character->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBook(): Collection
+    {
+        return $this->book;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->book->contains($book)) {
+            $this->book[] = $book;
+            $book->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->book->contains($book)) {
+            $this->book->removeElement($book);
+            // set the owning side to null (unless already changed)
+            if ($book->getUser() === $this) {
+                $book->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary">{{ button|default('Bouton par défaut') }}</button>
+
+{{ form_end(form) }}
+<a href="{{ path('equipment_index') }}"><button class="btn btn-primary">Retour</button></a>

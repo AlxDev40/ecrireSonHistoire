@@ -1,0 +1,59 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1>Editer les chapitres du livre "{{ book.name }}".</h1>
+
+
+    <div class="createChapter">
+        <a href="{{ path('chapter_create') }}">Créer un chapitre</a>
+    </div>
+
+    <div class="container helpContainer">
+        <a href="{{ path('help_getOne', {'id': 2}) }}" class="js-help"><button class="btn btn-primary">Ouvrir
+                l'aide</button>
+        </a>
+        <div id='help' style='display:none'>
+            <h2 class="js-h2"></h2>
+            <p class="js-p"></p>
+            <button class="btn btn-outline-primary js-button">Fermer l'aide</button>
+        </div>
+    </div>
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom du chapitre</th>
+                <th>Numéro du chapitre</th>
+                <th>Routes arrivants</th>
+                <th>Routes partants</th>
+                <th style="width: 17%;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chapter in book.chapters %}
+            <tr>
+                <td>{{chapter.name}}</td>
+                <td>{{chapter.number}}</td>
+                <td>{{ chapter.targetRoads|length }}</td>
+                <td>{{ chapter.roads|length }}</td>
+                <td>
+                    <a href="{{ path('chapter_edit', {'id': chapter.id} ) }}" class="btn btn-secondary">Editer</a>
+                    <form method="POST" action="{{ path('chapter_delete', {id: chapter.id}) }}" style="display: inline"
+                        onsubmit="return confirm('Voulez-vous vraiment supprimer ce chapitre ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chapter.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body %}

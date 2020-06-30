@@ -1,0 +1,10 @@
+{% extends "adminBase.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1>Créer un bouton</h1>
+
+    {{ include ('road/_form_road.html.twig', {form: form, button:'Créer'}) }}
+
+</div>
+{% endblock body %}

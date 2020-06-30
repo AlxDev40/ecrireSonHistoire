@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ecrire son histoire - administrateur</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset("/css/style.css") }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <div id="main">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a href="{{ path('esh_home') }}"><img src="{{ asset("/pictures/LogoEcrireSonHistoire.png") }}"
+                        alt="Image" class="logoHeader"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+                    aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarColor03">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('book_index')}}">Gestion des livres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('chapter_index')}}">Gestion des chapitres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('road_index')}}">Gestion des routes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('equipment_index')}}">Gestion des équipements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('memberPage')}}">Quitter le mode édition</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="admin">
+            {% block body %}{% endblock %}
+        </div>
+        <footer>
+            <div class="footer">
+                <div class="plan">
+                    <h3>Plan du site</h3>
+                    <ul>
+                        <a href="{{ path('esh_home') }}">
+                            <li>Accueil</li>
+                        </a>
+                        <a href="{{path('esh_rules')}}">
+                            <li>Règle</li>
+                        </a>
+                        {% if not app.user %}
+                        <a href="{{path('security_login')}}">
+                            <li>Connexion</li>
+                        </a>
+                        <a href="{{path('security_registration')}}">
+                            <li>Enregistrement</li>
+                        </a>
+                        {% else %}
+                        <a href="{{path('memberPage')}}">
+                            <li>Page membre</li>
+                        </a>
+                        <a href="{{path('character_create')}}">
+                            <li>Création de personnage</li>
+                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{path('book_index')}}">
+                            <li>Ecrire son histoire</li>
+                        </a>
+                        {% endif %}
+                        <a href="{{path('security_logout')}}">
+                            <li>Deconnexion</li>
+                        </a>
+                        {% endif %}
+                    </ul>
+                </div>
+                <h3 style="margin: auto;"><a href="{{ path('legal') }}">Mentions légales</a></h3>
+                <div class="social">
+                    <h3>Réseaux Sociaux</h3>
+                    <ul>
+                        <li>FaceBook</li>
+                        <li>Twiter</li>
+                        <li>Instagram</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+
+    {% block javascripts %}{% endblock %}
+    <script src="{{ asset("/js/script.js") }}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src=" https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

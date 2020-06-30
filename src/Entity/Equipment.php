@@ -29,9 +29,25 @@ class Equipment
      */
     private $characters;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Road::class, mappedBy="necessary")
+     */
+    private $roadsConstrainte;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $attack;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $defense;
+
     public function __construct()
     {
         $this->characters = new ArrayCollection();
+        $this->roadsConstrainte = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +89,61 @@ class Equipment
         if ($this->characters->contains($character)) {
             $this->characters->removeElement($character);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Road[]
+     */
+    public function getRoadsConstrainte(): Collection
+    {
+        return $this->roadsConstrainte;
+    }
+
+    public function addRoadsConstrainte(Road $roadsConstrainte): self
+    {
+        if (!$this->roadsConstrainte->contains($roadsConstrainte)) {
+            $this->roadsConstrainte[] = $roadsConstrainte;
+            $roadsConstrainte->setNecessary($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoadsConstrainte(Road $roadsConstrainte): self
+    {
+        if ($this->roadsConstrainte->contains($roadsConstrainte)) {
+            $this->roadsConstrainte->removeElement($roadsConstrainte);
+            // set the owning side to null (unless already changed)
+            if ($roadsConstrainte->getNecessary() === $this) {
+                $roadsConstrainte->setNecessary(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAttack(): ?int
+    {
+        return $this->attack;
+    }
+
+    public function setAttack(?int $attack): self
+    {
+        $this->attack = $attack;
+
+        return $this;
+    }
+
+    public function getDefense(): ?int
+    {
+        return $this->defense;
+    }
+
+    public function setDefense(?int $defense): self
+    {
+        $this->defense = $defense;
 
         return $this;
     }

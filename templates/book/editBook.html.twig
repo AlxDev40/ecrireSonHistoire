@@ -1,0 +1,14 @@
+{% extends "adminBase.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1>Editer ce livre</h1>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button class="btn btn-primary">Editer</button>
+    {{ form_end(form) }}
+    <a href="{{ path('book_index') }}"><button class="btn btn-primary">Annulation</button></a>
+
+
+</div>
+{% endblock body %}

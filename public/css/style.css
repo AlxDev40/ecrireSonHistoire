@@ -17,19 +17,21 @@
 }
 
 body{
-    font-family: 'Berry_Rotunda', Arial, Helvetica, sans-serif;
-    font-size: x-large;
+    font-family: 'Times New Roman', Arial, Helvetica, sans-serif;
+    font-size: xx-large;
     color: #676259;
 }
 
 /* Général configuration*/
 h1{
-    font-family: 'title_Ruritania', Arial, Helvetica, sans-serif;
+    font-family: 'paragraph_Cardinal', Arial, Helvetica, sans-serif;
     font-size: 70px;
     padding-top: 30px;
     text-align: center;
+    text-decoration: underline;
 }
 h2{
+    font-family: 'paragraph_Cardinal', Arial, Helvetica, sans-serif;
     text-align: center;
     padding: 30px;
     text-decoration: underline;
@@ -39,13 +41,27 @@ h2{
     color: #676259;
 }
 #intro p{
-    font-family: 'paragraph_Cardinal', Arial, Helvetica, sans-serif;
     padding: 30px;
-    font-size: xxx-large;
 }
-.btn-primary{
-    background-color: #5A3A22;
+.intro{
+    padding-bottom: 30px;
 }
+table
+{
+    font-size: x-large;
+}
+.table-striped{
+    font-size: x-large;
+}
+
+/*link configure*/
+a {
+    color: whitesmoke;
+}
+a:hover {
+    color:#375a7f; 
+}
+
 form{
     width: 100%;
     margin: auto;
@@ -57,26 +73,33 @@ form{
 .box02
 {
     background-color: #FFEFD5;
+    padding-bottom: 30px;
+
 }
 /* Template de base*/
 .navbar{
     font-size: x-large;
     background-color: #E0CDA9 !important;
 }
+/* Template admin*/
+.navbarAdminBase{
+    font-family: Arial, Helvetica, sans-serif;
 
+}
+#admin {
+    font-family: 'Times New Roman', Helvetica, sans-serif;
+}
+#admin h1{
+    font-family: 'Times New Roman', Helvetica, sans-serif;
+}
+
+
+/* */
 .navbar-nav{
     margin-right:0px !important;
     margin-inline-start: auto;
 }
 
-#homeIntroduction{
-    width: 70%;
-    text-align: center;
-    font-size: large;
-    margin: auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
 .carousel-control-prev-icon{
     background-image: url(/pictures/left.png);
     width: 50px;
@@ -93,8 +116,14 @@ form{
     justify-content: space-between;
     background-color: #E0CDA9 !important;
     color: #676259;
-    height: 200px;
-    padding: 50px;
+    height: 170px;
+    padding: 10px;
+}
+.plan, .social{
+    font-size: small;
+}
+footer a{
+    color: #676259;
 }
 
 /* general page template */
@@ -116,13 +145,9 @@ form{
     display: flex;
     justify-content: center;
 }
-.adminMemberPage_box01_paragraph .container form{
-    width: initial;
-    margin: initial;
-    padding: 10px;
-}
+
 .adminMemberPage_box01_paragraph div p{
-    padding: 30px;
+    padding-top: 30px;
 }
 .adminMemberPage_box01_paragraph a{
     padding-top: 30px;
@@ -160,13 +185,11 @@ a:hover{
     }
 #createCharacter_box02{
     background-color: #FFEFD5;
+    text-align: justify;
 }
     .createCharacter_box02_paragraph{
         padding: 10px 40px 40px 40px;
     }
-#createCharacter_box03{
-    
-}
     .createCharacter_box03_forDisplay{
         display: flex;
     }
@@ -175,12 +198,125 @@ a:hover{
         padding: 40px;
         text-align: justify;
         font-style: italic;
+        margin: auto;
     }
-    .createCharacter_box03_form{
+    .createCharacterForm{
         width: 40%;
         padding: 40px;
+        margin: auto;
+        font-size: x-large;
     }
-table
-{
-    font-size: initial;
+    .createCharacterForm input,.createCharacterForm select{
+        font-size: x-large;
+    }
+
+    .homeParagraph{
+        text-align: justify;
+    }
+
+/* help */
+#help{
+    padding: 20px;
+    background-color: #FFEFD5;
+    text-align: center;
+}
+.helpContainer{
+    padding-bottom: 10px;
+    text-align: end;
+}
+.createChapter{
+    padding-left: 30px;
+}
+
+.author{
+    text-align: right;
+    font-style: italic;
+    font-size: smaller;
+}
+.chapterName{
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+    padding: 10px;
+}
+.chapterDisplay{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 5px 5px 10px gray, 0px 0px 20px grey;
+               
+}
+.roadDisplay p{
+    padding-top: 15px;
+}
+.mention h2{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 50px;
+}
+.mention h3{
+    text-decoration: underline;
+}
+
+body, html{
+    height:100%;
+}
+#main{
+    position: relative;
+    min-height: 100%;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+#block, #admin{
+    padding-bottom: 200px;
+}
+.logForm input{
+    font-size: x-large;
+}
+.avatar{
+   text-align: center;
+   
+}
+.avatar img{
+    width: 90%;
+    box-shadow: 50px 0px 100px gray, -50px 0px 100px grey;
+}
+.read{
+    text-align: center;
+}
+.table-bordered{
+    border: 4px solid white;
+}
+.table-bordered td{
+    border: 2px solid white;
+}
+
+@media screen and (max-width: 1200px){
+    .table-striped{
+        font-size: small;
+    }
+    .avatar img{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 800px){
+    .table-striped{
+        font-size: xx-small;
+    }
+    #adminMemberPage_box01{
+        flex-direction: column;
+    }
+    .adminMemberPage_box01_picture{
+        margin: auto;
+    }
+    .createCharacter_box03_forDisplay{
+        flex-direction: column;
+    }
+    .createCharacter_box03_paragraph, .createCharacterForm{
+       width: 80%;
+    }
 }

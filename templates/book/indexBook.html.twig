@@ -1,0 +1,41 @@
+{% extends "adminBase.html.twig" %}
+
+{% block body %}
+<h1>Gestion des livres</h1>
+
+<div class="container helpContainer">
+    <a href="{{ path('help_getOne', {'id': 3}) }}" class="js-help"><button class="btn btn-primary">Ouvrir
+            l'aide</button>
+    </a>
+    <div id='help' style='display:none'>
+        <h2 class="js-h2"></h2>
+        <p class="js-p"></p>
+        <button class="btn btn-outline-primary js-button">Fermer l'aide</button>
+    </div>
+</div>
+
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom du livre</th>
+                <th>Auteur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in user.book %}
+            <tr>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>
+                    <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-secondary">Editer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

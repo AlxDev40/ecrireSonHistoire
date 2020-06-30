@@ -13,13 +13,15 @@ class EquipmentType extends AbstractType
     {
         $builder
             ->add('name')
-        ;
+            ->add('attack')
+            ->add('defense');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Equipment::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

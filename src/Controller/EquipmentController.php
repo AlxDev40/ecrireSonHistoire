@@ -5,24 +5,34 @@ namespace App\Controller;
 use App\Entity\Equipment;
 use App\Form\EquipmentType;
 use App\Repository\EquipmentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/equipment")
+ * @Route("admin/equipment")
  */
 class EquipmentController extends AbstractController
 {
+    /**
+     * @var ObjetctManager
+     */
+    private $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/", name="equipment_index", methods={"GET"})
      */
     public function index(EquipmentRepository $equipmentRepository): Response
     {
-        return $this->render('equipment/index.html.twig', [
+        return $this->render('equipment/indexEquipment.html.twig', [
             'equipment' => $equipmentRepository->findAll(),
-            'title'=>'Ecrire son histoire - Ajouter un objet',
         ]);
     }
 
@@ -43,7 +53,7 @@ class EquipmentController extends AbstractController
             return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('equipment/new.html.twig', [
+        return $this->render('equipment/newEquipment.html.twig', [
             'equipment' => $equipment,
             'form' => $form->createView(),
         ]);
@@ -54,7 +64,7 @@ class EquipmentController extends AbstractController
      */
     public function show(Equipment $equipment): Response
     {
-        return $this->render('equipment/show.html.twig', [
+        return $this->render('equipment/showEquipment.html.twig', [
             'equipment' => $equipment,
         ]);
     }
@@ -73,7 +83,7 @@ class EquipmentController extends AbstractController
             return $this->redirectToRoute('equipment_index');
         }
 
-        return $this->render('equipment/edit.html.twig', [
+        return $this->render('equipment/editEquipment.html.twig', [
             'equipment' => $equipment,
             'form' => $form->createView(),
         ]);
@@ -84,10 +94,10 @@ class EquipmentController extends AbstractController
      */
     public function delete(Request $request, Equipment $equipment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipment->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($equipment);
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete' . $equipment->getId(), $request->request->get('_token'))) {
+            $this->manager->remove($equipment);
+            $this->manager->flush();
+            $this->addFlash('success', 'L\'equipement ' . $equipment->getName() . ' à bien été supprimé.');
         }
 
         return $this->redirectToRoute('equipment_index');

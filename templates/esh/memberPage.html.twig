@@ -1,0 +1,90 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div id='intro'>
+    <h1>Gestion de votre espace membre</h1>
+    <p>Bonjour {{ app.user.username }}, Tu te trouves sur la page de gestion de ton espace membre. C'est d'ici que tu
+        pourras
+        gérer tes informations de membre, te connecter à tes personnages ou les supprimer.
+        C'est également à partir de cette page que tu pourras choisir l'histoire que tu desires lire.
+    </p>
+</div>
+
+<div id="adminMemberPage_box01">
+    <div class="adminMemberPage_box01_picture">
+        <img src="{{asset('/pictures/entrance_to_a_cave.png')}}" alt="entrée d'une grotte" width="70%">
+    </div>
+    <div class="adminMemberPage_box01_paragraph">
+        {% if user.characters|length > 0 %}
+        <div>
+            <p>Et bien voilà {{ user.username }}, tu es prêt à entrer dans l'aventure. Choisis un personnage et
+                affronte ton destin.</p>
+        </div>
+        <div>
+            <p>Que la magie opère et deviens :</p>
+            <div class="container">
+                {% for character in user.characters %}
+                <a href="{{ path('readBook_initiate', {'id':character.id}) }}" style="margin:10px;"><button
+                        class="btn btn-outline-primary">{{character.characterName}}</button></a>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div>
+            <p>Mais tu n'as pas encore de personnage {{ user.username }} ! Clique sur le bouton ci-dessous et crées-en
+                un.</p>
+            <a href="{{ path('character_create') }}"><button class="btn btn-outline-primary">Créer un
+                    personnage</button></a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div id="adminMemberPage_box02">
+    <div class="container">
+        <h1>Informations sur vos personnages</h1>
+        {% if user.characters|length > 0 %}
+
+        <table class='table table-striped'>
+            <tr>
+                <th>Nom</th>
+                <th>Level</th>
+                <th>Classe</th>
+                <th>Genre</th>
+                <th>Points de vie</th>
+                <th>Dextérité</th>
+                <th>Points d'attaque</th>
+                <th>Points de défense</th>
+                <th>Effacer</th>
+                <th>Equipement</th>
+            </tr>
+            {% for character in user.characters %}
+            <tr>
+                <td>{{ character.characterName }}</td>
+                <td>{{ character.level }}</td>
+                <td>{{ character.class }}</td>
+                <td>{{ character.gender }}</td>
+                <td>{{ character.lifePoint }}</td>
+                <td>{{ character.dexterity }}</td>
+                <td>{{ character.attack }}</td>
+                <td>{{ character.defense }}</td>
+                <td><a class="deleteButton" href="{{ path('character_delete', {'id': character.id}) }}"
+                        onclick="return(confirm('Etes-vous sûr de vouloir supprimer le personnage {{character.characterName}}. Cette action supprime toutes ces histoires en cours ainsi que tous ces équipements.'))"><button
+                            class="btn btn-danger">Supprimer</button></a>
+                </td>
+                <td>
+                    {% for equipment in character.equipment %}
+                    {{equipment.name}}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+    <p>Tu n'as pas encore créé de personnage</p>
+    {% endif %}
+</div>
+
+{% endblock body %}

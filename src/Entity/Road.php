@@ -24,20 +24,24 @@ class Road
 
     /**
      * @ORM\ManyToOne(targetEntity=Chapter::class, inversedBy="roads")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $chapter;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $itinerary;
 
     /**
      * @ORM\ManyToOne(targetEntity=Chapter::class, inversedBy="targetRoads")
      */
     private $targetChapter;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $paragraph;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Equipment::class, inversedBy="roadsConstrainte")
+     */
+    private $necessary;
 
     public function getId(): ?int
     {
@@ -68,18 +72,6 @@ class Road
         return $this;
     }
 
-    public function getItinerary(): ?string
-    {
-        return $this->itinerary;
-    }
-
-    public function setItinerary(?string $itinerary): self
-    {
-        $this->itinerary = $itinerary;
-
-        return $this;
-    }
-
     public function getTargetChapter(): ?Chapter
     {
         return $this->targetChapter;
@@ -92,5 +84,27 @@ class Road
         return $this;
     }
 
+    public function getParagraph(): ?string
+    {
+        return $this->paragraph;
+    }
 
+    public function setParagraph(?string $paragraph): self
+    {
+        $this->paragraph = $paragraph;
+
+        return $this;
+    }
+
+    public function getNecessary(): ?Equipment
+    {
+        return $this->necessary;
+    }
+
+    public function setNecessary(?Equipment $necessary): self
+    {
+        $this->necessary = $necessary;
+
+        return $this;
+    }
 }

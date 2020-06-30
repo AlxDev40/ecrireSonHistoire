@@ -1,0 +1,10 @@
+{% extends "adminBase.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Création des chapitres</h1>
+    {{ include('chapter/_form_chapter.html.twig', {form: form, button:'Créer'}) }}
+</div>
+
+{% endblock body %}

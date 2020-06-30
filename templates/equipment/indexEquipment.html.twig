@@ -1,0 +1,49 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block title %}Equipment index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Liste des équipements</h1>
+
+    <a href="{{ path('equipment_new') }}">Créer un nouvel équipement</a>
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Point d'attaque</th>
+                <th>Point de defense</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipment in equipment %}
+            <tr>
+                <td>{{ equipment.name }}</td>
+                <td>{{ equipment.attack }}</td>
+                <td>{{ equipment.defense }}</td>
+                <td>
+                    <a href="{{ path('equipment_edit', {'id': equipment.id}) }}"><button
+                            class="btn btn-secondary">Editer</button></a>
+                    <form method="post" action="{{ path('equipment_delete', {'id': equipment.id}) }}"
+                        style="display: inline"
+                        onsubmit="return confirm('Voulez-vous vraiment supprimer cet equipement ?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ equipment.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">Aucun équipement trouvé</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
